@@ -27,14 +27,11 @@ class AuthService extends IAuthService {
         throw new Error('User already exists');
       }
 
-      // Hash password
-      const hashedPassword = await this.hashPassword(password);
-
-      // Create user
+      // Create user (password will be hashed by Mongoose pre-save hook)
       const user = await this.userRepository.create({
         name,
         email,
-        password: hashedPassword,
+        password,
         collegeId,
       });
 

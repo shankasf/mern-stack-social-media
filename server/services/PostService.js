@@ -22,12 +22,12 @@ class PostService extends IPostService {
 
   async createPost(userId, postData) {
     try {
-      const { content, imageUrl } = postData;
+      const { content, imagePath } = postData;
 
       const post = await this.postRepository.create({
         user: userId,
         content,
-        imageUrl: imageUrl || '',
+        imagePath: imagePath || '',
       });
 
       return await this.postRepository.findById(post._id);

@@ -12,7 +12,7 @@ const ValidationService = require('../services/ValidationService');
 const LoggingService = require('../services/LoggingService');
 
 // Import controllers
-const AuthController = require('../controllers/AuthController');
+const AuthController = require('../controllers/authController');
 const PostController = require('../controllers/PostController');
 
 /**

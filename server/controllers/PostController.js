@@ -19,7 +19,8 @@ class PostController {
    */
   async createPost(req, res) {
     try {
-      const { content, imageUrl } = req.body;
+      const content = req.body?.content;
+      const imagePath = req.file ? `/uploads/${req.file.filename}` : (req.body?.imagePath || '');
 
       if (!content) {
         return res.status(400).json({ message: 'Content is required' });
@@ -27,7 +28,7 @@ class PostController {
 
       const post = await this.postService.createPost(req.user._id, {
         content,
-        imageUrl,
+        imagePath,
       });
 
       res.status(201).json(post);
@@ -74,10 +75,15 @@ class PostController {
    */
   async updatePost(req, res) {
     try {
+      const updateData = { ...req.body };
+      if (req.file) {
+        updateData.imagePath = `/uploads/${req.file.filename}`;
+      }
+
       const post = await this.postService.updatePost(
         req.params.id,
         req.user._id,
-        req.body
+        updateData
       );
       res.json(post);
     } catch (error) {

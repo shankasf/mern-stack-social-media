@@ -1,4 +1,5 @@
 const express = require('express');
+const { handleUpload } = require('../middleware/uploadMiddleware');
 
 /**
  * Post Routes
@@ -21,10 +22,10 @@ class PostRoutes {
     this.router.use(this.authMiddleware.protect.bind(this.authMiddleware));
 
     // Post CRUD routes
-    this.router.post('/', this.postController.createPost.bind(this.postController));
+    this.router.post('/', handleUpload, this.postController.createPost.bind(this.postController));
     this.router.get('/', this.postController.getPosts.bind(this.postController));
     this.router.get('/:id', this.postController.getPost.bind(this.postController));
-    this.router.put('/:id', this.postController.updatePost.bind(this.postController));
+    this.router.put('/:id', handleUpload, this.postController.updatePost.bind(this.postController));
     this.router.delete('/:id', this.postController.deletePost.bind(this.postController));
 
     // Post interaction routes

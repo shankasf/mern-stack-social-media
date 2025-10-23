@@ -20,11 +20,11 @@ const postController = serviceConfig.get('postController');
 const authService = serviceConfig.get('authService');
 
 // Create middleware
-const AuthMiddleware = require('./middleware/AuthMiddleware');
+const AuthMiddleware = require('./middleware/authMiddleware');
 const authMiddleware = new AuthMiddleware(authService);
 
 // Create routes
-const AuthRoutes = require('./routes/AuthRoutes');
+const AuthRoutes = require('./routes/authRoutes');
 const PostRoutes = require('./routes/PostRoutes');
 
 const authRoutes = new AuthRoutes(authController);
